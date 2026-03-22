@@ -7,15 +7,9 @@ import sys
 import os
 from collections import deque
 
-_script_dir = os.path.dirname(os.path.abspath(__file__))
-_project_root = os.path.dirname(_script_dir)
-if _script_dir not in sys.path:
-    sys.path.insert(0, _script_dir)
-os.chdir(_project_root)
-
 from game import Game
-from src.player_agent import PlayerAgent, MOVE_ACTIONS, SHOOT_ACTIONS
-from src.const import game_fps, train_config
+from game.src.player_agent import PlayerAgent, MOVE_ACTIONS, SHOOT_ACTIONS
+from game.src.const import game_fps, train_config
 
 NUM_EPISODES  = train_config["num_episodes"]
 MAX_STEPS     = train_config["max_steps"]

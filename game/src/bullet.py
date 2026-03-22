@@ -1,8 +1,9 @@
 # Bullet类：继承Object，沿方向向量匀速运动，每帧更新位置并检测是否越界。
 import pygame
 
-from .const import *
-from .object import Object
+from game.src.const import boundary_rect
+from game.src.object import Object
+
 
 class Bullet(Object):
     def __init__(self, dataname, id, position: list, direction):

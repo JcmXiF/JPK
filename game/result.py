@@ -3,29 +3,19 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-# Add project root to path
-_script_dir = os.path.dirname(os.path.abspath(__file__))
-_project_root = os.path.dirname(_script_dir)
-if _script_dir not in sys.path:
-    sys.path.insert(0, _script_dir)
-os.chdir(_project_root)
+# 设置工作目录为项目根目录
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(PROJECT_ROOT)
 
-# Try to import train_config, handle potential import errors if paths are tricky
-try:
-    from src.const import train_config
-    AGENT_PATH = train_config["agent_path"]
-except ImportError:
-    # If standard import fails, try to fix path manually or assume default
-    sys.path.append(os.path.join(_project_root, 'game'))
-    from src.const import train_config
-    AGENT_PATH = train_config["agent_path"]
+from game.src.const import train_config
+
+AGENT_PATH = train_config["agent_path"]
 
 
 def moving_average(data, window_size=50):
     if len(data) < window_size:
         return []
     result = []
-    # Simple moving average
     current_sum = sum(data[:window_size])
     result.append(current_sum / window_size)
     for i in range(window_size, len(data)):
@@ -33,16 +23,16 @@ def moving_average(data, window_size=50):
         result.append(current_sum / window_size)
     return result
 
+
 def plot_results():
-    # Construct absolute path if it's relative
+    # 构建绝对路径
     agent_path = AGENT_PATH
     if not os.path.isabs(agent_path):
-        agent_path = os.path.join(_project_root, agent_path)
-    
+        agent_path = os.path.join(PROJECT_ROOT, agent_path)
+
     if not os.path.exists(agent_path):
         print(f"File not found: {agent_path}")
-        # Fallback to local 'models/q_agent.pkl' if configured path is different
-        fallback = os.path.join(_project_root, 'models', 'q_agent.pkl')
+        fallback = os.path.join(PROJECT_ROOT, 'models', 'q_agent.pkl')
         if os.path.exists(fallback):
             print(f"Trying fallback: {fallback}")
             agent_path = fallback
@@ -63,12 +53,10 @@ def plot_results():
 
     if not reward_records:
         print("No training records found in the model file.")
-        print("The model might have been trained with an older version of the script.")
-        # Try to plot anyway if data is available in other keys? No, because we just started saving them.
         return
 
     episodes = range(1, len(reward_records) + 1)
-    
+
     fig, axs = plt.subplots(2, 2, figsize=(12, 8))
     fig.suptitle(f'Training Results ({len(reward_records)} Episodes)')
 
@@ -115,8 +103,8 @@ def plot_results():
 
     plt.tight_layout()
 
-    # Save result to result folder
-    result_dir = os.path.join(_project_root, 'result')
+    # 保存结果到result文件夹
+    result_dir = os.path.join(PROJECT_ROOT, 'result')
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
     save_path = os.path.join(result_dir, 'training_result.png')
@@ -124,6 +112,7 @@ def plot_results():
     print(f"Result plot saved to {save_path}")
 
     plt.show()
+
 
 if __name__ == "__main__":
     plot_results()

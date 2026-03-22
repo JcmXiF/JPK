@@ -5,11 +5,15 @@ import pygame
 import sys
 import random
 
-from src.const import *
-from src.player import Player
-from src.enemy import Enemy
+from game.src.const import (
+    screen_size, boundary_rect, endless_config,
+    objectdata, enemy_entrance, enemy_entrance_keys, game_fps,
+)
+from game.src.player import Player
+from game.src.enemy import Enemy
 
-class Game():
+
+class Game:
     def __init__(self, headless=False):
         self.headless = headless
         if headless:

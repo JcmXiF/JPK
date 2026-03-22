@@ -1,9 +1,10 @@
 # Object类：所有游戏实体的基类，负责从配置加载图像（带全局缓存）、帧动画和碰撞矩形计算。
 import pygame
 
-from .const import *
+from game.src.const import objectdata
 
 _image_cache = {}
+
 
 class Object(pygame.sprite.Sprite):
     def __init__(self, dataname, id):

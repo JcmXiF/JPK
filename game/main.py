@@ -3,31 +3,29 @@ import pygame
 import sys
 import os
 
-_script_dir = os.path.dirname(os.path.abspath(__file__))
-_project_root = os.path.dirname(_script_dir)
-if _script_dir not in sys.path:
-    sys.path.insert(0, _script_dir)
-os.chdir(_project_root)
+# 设置工作目录为项目根目录
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(PROJECT_ROOT)
 
 from game import Game
 
 # "game"  : 手动游玩（键盘操控）
 # "train" : 训练 agent（headless，纯计算）
 # "watch" : 观看训练好的 agent 游玩
-flag = "watch"
+FLAG = "watch"
 
 pygame.init()
 
 if __name__ == "__main__":
-    if flag == "game":
+    if FLAG == "game":
         game = Game()
         while True:
             game.main_loop()
 
-    elif flag == "train":
-        from train import train
+    elif FLAG == "train":
+        from game.train import train
         train(render=False)
 
-    elif flag == "watch":
-        from train import watch
+    elif FLAG == "watch":
+        from game.train import watch
         watch()

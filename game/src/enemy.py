@@ -1,8 +1,8 @@
 # Enemy类：继承Role，每帧将位置向玩家方向归一化移动（追逐AI），受击扣血。
 import pygame
 
-from .const import *
-from .role import Role
+from game.src.role import Role
+
 
 class Enemy(Role):
     def __init__(self, dataname, id, position):

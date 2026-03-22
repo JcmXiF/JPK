@@ -6,7 +6,8 @@ import math
 import random
 import pickle
 
-from .const import boundary_rect, agent_config
+from game.src.const import boundary_rect, agent_config
+
 
 MOVE_ACTIONS = [
     (0, 0),     # 0: 静止

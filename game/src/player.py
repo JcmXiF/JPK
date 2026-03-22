@@ -2,9 +2,10 @@
 # 内置射击冷却和受击无敌期（无敌期间画面闪烁）。
 import pygame
 
-from .const import *
-from .role import Role
-from .bullet import Bullet
+from game.src.const import boundary_rect
+from game.src.role import Role
+from game.src.bullet import Bullet
+
 
 class Player(Role):
     def __init__(self, dataname, id, position):

@@ -1,8 +1,9 @@
 # Role类：角色基类，继承Object，封装移动（带delta time）与边界碰撞限位逻辑。
 import pygame
 
-from .const import *
-from .object import Object
+from game.src.const import boundary_rect
+from game.src.object import Object
+
 
 class Role(Object):
     def __init__(self, dataname, id, position):
